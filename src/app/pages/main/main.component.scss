@@ -1,0 +1,66 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.address-table {
+  flex: 1 1 auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  .mat-header-row {
+    min-height: 64px;
+  }
+
+  .address {
+    position: relative;
+    cursor: pointer;
+    height: 60px;
+  }
+
+  .mat-cell {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .mat-column-id {
+    flex: 0 0 2%;
+  }
+
+  .mat-column-cnpj {
+    flex: 0 0 13%;
+  }
+
+  .mat-column-cep {
+    flex: 0 0 8%;
+  }
+
+  .mat-column-street {
+    flex: 0 0 22%;
+  }
+
+  .mat-column-number {
+    flex: 0 0 5%;
+  }
+
+  .mat-column-complement {
+    flex: 0 0 8%;
+  }
+
+  .mat-column-neighborhood {
+    flex: 0 0 10%;
+  }
+
+  .mat-column-city {
+    flex: 0 0 10%;
+  }
+
+  .mat-column-ufShortName {
+    flex: 0 0 5%;
+  }
+
+  .mat-column-ufFullName {
+    flex: 0 0 12%;
+  }
+}

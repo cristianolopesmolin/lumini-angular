@@ -1,0 +1,129 @@
+<mat-toolbar color="primary">
+  <span>Lumini{{ ' - ' + userName }}</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button aria-label="logout" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-card>
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Buscar endereço">
+      <form
+      fxLayout='row' 
+      fxLayoutAlign='center'
+      fxFlex='1 0 auto'
+      name="addressForm" 
+      [formGroup]="addressForm" 
+      novalidate
+      (submit)="findAddress()"
+      >
+      <mat-form-field appearance="outline" fxFlex="35" style="margin-right: 8px;">
+        <mat-label>CNPJ</mat-label>
+        <input matInput type="text" formControlName="cnpj" mask="00.000.000/0000-00">
+        <mat-error *ngIf="addressForm.controls.cnpj.errors?.required">
+            CNPJ é obrigatório
+        </mat-error>
+        <mat-error *ngIf="addressForm.controls.cnpj.hasError('invalidDocument') || addressForm.controls.cnpj.hasError('invalidCNPJ')">
+            CNPJ inválido 
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button style="margin-top: 4px; height: 50px;" color="primary" type="submit" [disabled]="addressForm.invalid">Buscar endereço</button>
+      </form>
+      <div
+        fxLayout='column' 
+        fxLayoutAlign='center'
+        fxFlex='1 0 auto'>
+        <mat-table #table [dataSource]="addressDataSource" *ngIf="address" class="address-table">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cnpj">
+            <th mat-header-cell *matHeaderCellDef> CNPJ </th>
+            <td mat-cell *matCellDef="let element"> {{element.cnpj}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="cep">
+            <th mat-header-cell *matHeaderCellDef> CEP </th>
+            <td mat-cell *matCellDef="let element"> {{element.cep}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="street">
+            <th mat-header-cell *matHeaderCellDef> Rua </th>
+            <td mat-cell *matCellDef="let element"> {{element.street}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="number">
+            <th mat-header-cell *matHeaderCellDef> Número </th>
+            <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="complement">
+            <th mat-header-cell *matHeaderCellDef> Complemento </th>
+            <td mat-cell *matCellDef="let element"> {{element.complement ? element.complement : 'NA'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="neighborhood">
+            <th mat-header-cell *matHeaderCellDef> Bairro </th>
+            <td mat-cell *matCellDef="let element"> {{element.neighborhood}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef> Cidade </th>
+            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ufShortName">
+            <th mat-header-cell *matHeaderCellDef> Sigla </th>
+            <td mat-cell *matCellDef="let element"> {{element.ufShortName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="ufFullName">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.ufFullName}} </td>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let address; columns: displayedColumns;" class="address"></mat-row>
+        </mat-table>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Média">
+      <form
+      fxLayout='row' 
+      fxLayoutAlign='center'
+      fxFlex='1 0 auto'
+      name="averageForm" 
+      [formGroup]="averageForm" 
+      novalidate
+      (submit)="calculateAverage()"
+      >
+        <mat-form-field appearance="outline" fxFlex="35" style="margin-right: 8px;">
+          <mat-label>Primeiro valor</mat-label>
+          <input matInput formControlName="firstValue" currencyMask>
+          <mat-error *ngIf="averageForm.controls.firstValue.errors?.required">
+              Valor obrigatório
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="35" style="margin-right: 8px;">
+          <mat-label>Segundo valor</mat-label>
+          <input matInput formControlName="secondValue" currencyMask>
+          <mat-error *ngIf="averageForm.controls.secondValue.errors?.required">
+              Valor obrigatório
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button style="margin-top: 4px; height: 50px;" color="primary" type="submit" [disabled]="averageForm.invalid">Calcular média</button>
+      </form>
+      <div
+        fxLayout='row' 
+        fxLayoutAlign='center'
+        fxFlex='1 0 auto'>
+        <h1 *ngIf="result">
+          A média é {{ result }}
+        </h1>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

@@ -1,0 +1,77 @@
+<div style="margin: 100px; text-align: center;">
+  <mat-card>
+    <mat-card-title>Novo usuário</mat-card-title>
+    <mat-card-content>
+      <form fxLayout='column' 
+        fxLayoutAlign='start'
+        fxFlex='1 0 auto'
+        name="newUserForm" 
+        [formGroup]="newUserForm">
+
+        <div fxLayout="row" fxLayoutAlign="center" fxFlex="1 0 auto">
+          <mat-form-field appearance="outline" fxFlex="35">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="name">
+            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+            <mat-error *ngIf="newUserForm.controls.name.errors?.required"
+              >Nome é obrigatório</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center" fxFlex="1 0 auto">
+          <mat-form-field appearance="outline" fxFlex="35">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+            <mat-error *ngIf="newUserForm.controls.email.errors?.required"
+              >Email é obrigatório</mat-error
+            >
+            <mat-error *ngIf="newUserForm.controls.email.hasError('invalidEmail')"
+              >Email informado é inválido</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center" fxFlex="1 0 auto">
+          <mat-form-field appearance="outline" fxFlex="35">
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" formControlName="password">
+            <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+            <mat-error *ngIf="newUserForm.controls.password.errors?.required"
+              >Senha é obrigatória</mat-error
+            >
+            <mat-error *ngIf="newUserForm.controls.password.hasError('minlength')"
+              >O tamanho mínimo é de 6 dígitos</mat-error
+            >
+            <mat-error *ngIf="newUserForm.controls.password.hasError('pattern')"
+              >Deve conter uma letra maiúscula, uma minúscula e um número</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center" fxFlex="1 0 auto">
+          <mat-form-field appearance="outline" fxFlex="35">
+            <mat-label>Confirmar Senha</mat-label>
+            <input matInput type="password" formControlName="confirmPassword">
+            <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+            <mat-error *ngIf="newUserForm.controls.confirmPassword.errors?.required"
+              >Confirmação da senha é obrigatória
+            </mat-error>
+            <mat-error
+              *ngIf="
+              newUserForm.controls.confirmPassword.hasError('mismatchedPasswords')
+              "
+              >As senhas não são iguais</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="submit" color="primary" (click)="addNewUser()">Cadastrar</button>
+      <a mat-raised-button type="button" color="primary" [routerLink]="'/public/sign-in'">Voltar</a>
+    </mat-card-actions>
+  </mat-card>
+</div>
